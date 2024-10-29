@@ -1,3 +1,6 @@
+"use client";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Home, Rocket, LineChart, User2 } from "lucide-react";
 
 import {
@@ -31,6 +34,15 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const [currentPath, setCurrentPath] = useState("");
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentPath(window.location.pathname);
+    }
+  }, [pathname]);
+
   return (
     <Sidebar>
       <SidebarHeader />
@@ -39,7 +51,7 @@ export function AppSidebar() {
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild isActive={currentPath === item.url}>
                 <a href={item.url}>
                   <item.icon />
                   <span>{item.title}</span>
