@@ -46,7 +46,9 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader />
-      <Logo />
+      <div className="p-2 mb-10">
+        <Logo />
+      </div>
       <SidebarContent>
         <SidebarMenu>
           {items.map((item) => (
