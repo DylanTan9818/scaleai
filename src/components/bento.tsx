@@ -8,18 +8,22 @@ import {
 
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { cn } from "@/lib/utils";
+import { MPIflow } from "@/app/(landing page)/_component/animatedbeam-MPI";
+import { LLMflow } from "@/app/(landing page)/_component/animatedbeam-LLM";
 
 const features = [
   {
     Icon: GlobeIcon,
     name: "Analyze Market Performance with NLP Transformers",
-    description: "Sharpen technical, problem-solving, and teamwork skills.",
+    description:
+      "Offers a cumulative score from recent market news, helping SMEs make quick, informed decisions.",
     href: "/",
     cta: "Learn more",
     background: (
-      <div className="relative w-full h-full overflow-hidden rounded-lg">
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white/30 to-transparent z-20" />
-      </div>
+      <>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 opacity-50 z-0" />
+        <MPIflow className="absolute right-2 top-4 h-[300px] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_2%,#000_30%)] group-hover:scale-105 z-10" />
+      </>
     ),
     className: "lg:col-span-2 lg:row-span-1",
   },
@@ -27,7 +31,7 @@ const features = [
     Icon: ShoppingCartIcon,
     name: " Dashboard",
     description:
-      "A lightning-fast Cart API complete with discounts, gift cards, shipping, and payment.",
+      "historical GDP trends by sector, helping businesses make informed decisions.",
     href: "/",
     cta: "Learn more",
     background: (
@@ -39,7 +43,7 @@ const features = [
     Icon: TramFrontIcon,
     name: "Easy Integrations",
     description:
-      "Sell through marketplaces, physical stores, etc., and manage from one unified overview.",
+      "For future improvement, system is able to receive data from government agencies to provide a comprehensive view of your business.",
     href: "/",
     cta: "Learn more",
     background: (
@@ -51,11 +55,14 @@ const features = [
     Icon: PackageIcon,
     name: "LLM Recommends Loan & Grants",
     description:
-      "Spent semester break to became Full Stack Developer Summer Intern. Participated in Tech Meetups and Events.",
+      "Matches SMEs with suitable financial programs to reduce reliance on expensive loans.",
     href: "/",
     cta: "Learn more",
     background: (
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-yellow-50 opacity-50" />
+      <div>
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-yellow-50 opacity-50" />
+        <MPIflow className="absolute right-2 top-4 h-[300px] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_2%,#000_30%)] group-hover:scale-105 z-10" />
+      </div>
     ),
     className: "lg:col-span-2 lg:row-span-1",
   },
@@ -70,7 +77,7 @@ const Bento = () => {
           {...feature}
           className={cn(
             feature.className,
-            "h-[19rem]",
+            "h-[20rem]",
             "bg-white dark:bg-neutral-950 dark:hover:bg-neutral-900 transition-all duration-300",
             "border border-neutral-200 dark:border-neutral-800",
             "rounded-3xl overflow-hidden",

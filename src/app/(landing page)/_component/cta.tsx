@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const CallToAction = () => {
   return (
@@ -15,7 +16,9 @@ const CallToAction = () => {
               Cancel anytime.
             </p>
             <div className="mt-11 flex flex-col justify-center gap-2 sm:flex-row">
-              <Button size="lg">Get Started</Button>
+              <Button size="lg" asChild>
+                <Link href="/dashboard">Get Started!</Link>
+              </Button>
               <Button size="lg" variant="outline">
                 Learn More
               </Button>

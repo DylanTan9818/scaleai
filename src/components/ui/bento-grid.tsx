@@ -45,7 +45,7 @@ const BentoCard = ({
   <div
     className={cn(
       "group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-3xl",
-      "h-[28rem", // Add a fixed height here
+      "h-[28rem]", // Add a fixed height here
       // light styles
       "bg-white shadow-sm hover:shadow-md",
       // dark styles
@@ -73,7 +73,8 @@ const BentoCard = ({
         variant="ghost"
         asChild
         size="sm"
-        className="hover:bg-neutral-100 dark:hover:bg-neutral-800"
+        className="hover:bg-neutral-100 dark:hover:
+        neutral-800"
       ></Button>
     </div>
   </div>
