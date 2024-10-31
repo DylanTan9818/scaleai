@@ -43,7 +43,7 @@ const sections = [
 
 const Footer = () => {
   return (
-    <section className="py-32">
+    <section className="py-32 bg-slate-200">
       <div className="container mx-auto">
         <footer>
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
@@ -107,7 +107,7 @@ const Footer = () => {
           </div>
           <Separator className="my-14" />
           <p className="text-sm text-muted-foreground">
-            © 2024 Shadcnblocks. All rights reserved.
+            © 2024 ScaleAI. All rights reserved.
           </p>
         </footer>
       </div>

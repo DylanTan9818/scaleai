@@ -22,7 +22,7 @@ const features = [
     background: (
       <>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 opacity-50 z-0" />
-        <MPIflow className="absolute right-2 top-4 h-[300px] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_2%,#000_30%)] group-hover:scale-105 z-10" />
+        <MPIflow className="absolute right-2 top-4 h-[300px] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_bottom,transparent_2%,#000_40%)]  group-hover:scale-105 z-10" />
       </>
     ),
     className: "lg:col-span-2 lg:row-span-1",
@@ -61,7 +61,7 @@ const features = [
     background: (
       <div>
         <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-yellow-50 opacity-50" />
-        <MPIflow className="absolute right-2 top-4 h-[300px] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_2%,#000_30%)] group-hover:scale-105 z-10" />
+        <LLMflow className="absolute right-2 top-4 h-[300px] border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_2%,#000_30%)] group-hover:scale-105 z-10" />
       </div>
     ),
     className: "lg:col-span-2 lg:row-span-1",

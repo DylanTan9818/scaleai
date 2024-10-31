@@ -5,6 +5,8 @@
 "use client";
 
 import AutoScroll from "embla-carousel-auto-scroll";
+import DotPattern from "@/components/ui/dot-pattern";
+import { cn } from "@/lib/utils";
 
 import {
   Carousel,
@@ -15,82 +17,91 @@ import {
 const logos = [
   {
     id: "logo-1",
-    description: "Logo 1",
-    image: "https://www.shadcnblocks.com/images/block/logos/astro.svg",
+    description: "SSM",
+    image:
+      "https://accounting.my/wp-content/uploads/2023/05/SSM-Logo-1024x565.webp",
   },
   {
     id: "logo-2",
-    description: "Logo 2",
-    image: "https://www.shadcnblocks.com/images/block/logos/figma.svg",
+    description: "PADU",
+    image:
+      "https://www.melaka.gov.my/images/artikel/pengumuman/20240104_padu/logo_padu.png",
   },
   {
     id: "logo-3",
-    description: "Logo 3",
-    image: "https://www.shadcnblocks.com/images/block/logos/nextjs.svg",
+    description: "LHDN",
+    image:
+      "https://upload.wikimedia.org/wikipedia/ms/thumb/4/4e/LHDN_logo.png/1200px-LHDN_logo.png",
   },
   {
     id: "logo-4",
-    description: "Logo 4",
-    image: "https://www.shadcnblocks.com/images/block/logos/react.png",
+    description: "Cradle",
+    image:
+      "https://images.crunchbase.com/image/upload/c_pad,f_auto,q_auto:eco,dpr_1/v1495765626/byljuxgecdrsm4giigxt.png",
   },
   {
     id: "logo-5",
-    description: "Logo 5",
-    image: "https://www.shadcnblocks.com/images/block/logos/shadcn-ui.svg",
+    description: "Sidec",
+    image: "https://businesshr.asia/wp-content/uploads/2021/04/SIDEC-Logo.png",
   },
   {
     id: "logo-6",
-    description: "Logo 6",
-    image: "https://www.shadcnblocks.com/images/block/logos/supabase.svg",
+    description: "CTOS",
+    image: "https://leeshih.com/wp-content/uploads/2016/02/new_ctos.png",
   },
   {
     id: "logo-7",
-    description: "Logo 7",
-    image: "https://www.shadcnblocks.com/images/block/logos/tailwind.svg",
+    description: "Fikra ACE",
+    image: "/other-logos/fikraace.png",
   },
   {
     id: "logo-8",
-    description: "Logo 8",
-    image: "https://www.shadcnblocks.com/images/block/logos/vercel.svg",
+    description: "Teraja Peneraju Bumiputera",
+    image: "/other-logos/peneraju.svg",
   },
 ];
 
 const CompaniesLogo = () => {
   return (
-    <section className="py-32">
-      <div className="container mx-auto flex flex-col items-center text-center">
-        <h1 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">
-          Trusted by these companies
-        </h1>
-      </div>
-      <div className="pt-10 md:pt-16 lg:pt-20">
-        <div className="relative mx-auto flex items-center justify-center lg:max-w-5xl">
-          <Carousel
-            opts={{ loop: true }}
-            plugins={[AutoScroll({ playOnInit: true })]}
-          >
-            <CarouselContent className="ml-0">
-              {logos.map((logo) => (
-                <CarouselItem
-                  key={logo.id}
-                  className="basis-1/3 pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6"
-                >
-                  <div className="mx-10 flex shrink-0 items-center justify-center">
-                    <div>
-                      <img
-                        src={logo.image}
-                        alt={logo.description}
-                        className="h-7 w-auto"
-                      />
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-background to-transparent"></div>
-          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-background to-transparent"></div>
+    <section>
+      <div className="relative flex h-[600px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-white bg-background">
+        <div className="container mx-auto flex flex-col items-center text-center">
+          <h1 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">
+            Future Partnerships & Collaboration
+          </h1>
         </div>
+        <div className="pt-10 md:pt-16 lg:pt-20">
+          <div className="relative mx-auto flex items-center justify-center lg:max-w-5xl">
+            <Carousel
+              opts={{ loop: true }}
+              plugins={[AutoScroll({ playOnInit: true })]}
+            >
+              <CarouselContent className="ml-0">
+                {logos.map((logo) => (
+                  <CarouselItem
+                    key={logo.id}
+                    className="basis-1/3 pl-0 sm:basis-1/4 md:basis-1/5 lg:basis-1/6"
+                  >
+                    <div className="mx-10 flex shrink-0 items-center justify-center">
+                      <div>
+                        <img
+                          src={logo.image}
+                          alt={logo.description}
+                          className="h-11 w-auto"
+                        />
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+        </div>
+        <DotPattern
+          className={cn(
+            "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
+          )}
+        />
       </div>
     </section>
   );

@@ -14,11 +14,6 @@ const LandingPage = () => {
       <CompaniesLogo />
       <CallToAction />
       <Footer />
-      <h1>Home Page</h1>
-      <p>Welcome to the home page</p>
-      <Button asChild>
-        <Link href="/dashboard">Get Started!</Link>
-      </Button>
     </div>
   );
 };
