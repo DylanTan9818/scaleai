@@ -7,9 +7,9 @@ export const Logo = () => {
       <Link href="/">
         <Image
           src="/images/ScaleAI.svg"
-          width={260}
-          height={260}
-          alt="KinderGuardian Logo"
+          width={230}
+          height={230}
+          alt="ScaleAI"
         />
       </Link>
     </div>
