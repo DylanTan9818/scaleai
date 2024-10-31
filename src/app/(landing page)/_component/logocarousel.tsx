@@ -64,7 +64,7 @@ const logos = [
 const CompaniesLogo = () => {
   return (
     <section>
-      <div className="relative flex h-[600px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-white bg-background">
+      <div className="relative flex h-[600px] w-full flex-col items-center justify-center overflow-hidden rounded-lg  bg-white bg-background md:shadow-xl">
         <div className="container mx-auto flex flex-col items-center text-center">
           <h1 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">
             Future Partnerships & Collaboration
