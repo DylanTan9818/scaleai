@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import dynamic from "next/dynamic";
+
 import { BentoGrid, BentoCard } from "@/components/ui/bento-grid";
 import {
   ActivitySquare,
@@ -46,68 +48,57 @@ const yearData = [
 
 const GaugeDisplay = () => {
   const value = 85; // Current value
-  const radius = 40;
+  const radius = 48; // You can adjust this value to move the arrow in/out
   const strokeWidth = 10;
   const normalizedRadius = radius - strokeWidth / 2;
   const circumference = normalizedRadius * Math.PI;
   const progressOffset = circumference - (value / 100) * circumference;
 
+  // Convert radius to pixels for the arrow container
+  // Multiply by a factor to get a good default size
+  const containerSize = radius * 6; // Adjust this multiplier to change the default size
+
+  // Calculate the rotation angle
+  const rotationAngle = (value / 100) * 180 - 90;
+
   return (
-    <div className="relative w-48 h-48">
-      <svg viewBox="0 0 100 100" className="transform rotate-180 w-full h-full">
-        <path
-          d="M 20,50 A 30,30 0 1,0 80,50"
-          fill="none"
-          stroke="#e5e7eb"
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-        />
-
-        {/* Progress arcs */}
-        {/* Green section (66-100) */}
-        <path
-          d="M 20,50 A 30,30 0 0,0 35,77"
-          fill="none"
-          stroke="#22c55e"
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-        />
-
-        {/* Blue section (33-66) */}
-        <path
-          d="M 35,77 A 30,30 0 0,0 65,77"
-          fill="none"
-          stroke="#3b82f6"
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-        />
-
-        {/* Red section (0-33) */}
-        <path
-          d="M 65,77 A 30,30 0 0,0 80,50"
-          fill="none"
-          stroke="#ef4444"
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-        />
-
-        {/* Indicator needle */}
-        <path
-          d={`M 50,50 L ${
-            50 + normalizedRadius * Math.cos((value / 100) * Math.PI)
-          },${50 + normalizedRadius * Math.sin((value / 100) * Math.PI)}`}
-          stroke="#000"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-
-        {/* Center circle */}
-        <circle cx="50" cy="50" r="4" fill="#000" />
-      </svg>
-
+    <div className="relative w-full h-full mt-20">
+      <Image
+        className="absolute inset-0"
+        src="/images/assets/mpi-gauge.svg"
+        alt="gauge"
+        layout="fill"
+        objectFit="contain"
+      />
+      <div className="absolute inset-0">
+        <div className="relative w-full h-full">
+          <div
+            className="absolute left-1/2 top-[45%]"
+            style={{
+              transform: `translate(-50%, -50%) rotate(${rotationAngle}deg)`,
+              transformOrigin: "50% 65%",
+              width: `${containerSize}px`,
+              height: `${containerSize}px`,
+            }}
+          >
+            <Image
+              height={containerSize}
+              width={containerSize}
+              src="/images/assets/arrow.svg"
+              alt="arrow"
+              className="w-full h-full"
+              style={{
+                transformOrigin: "center",
+                // Scale can also be tied to radius if needed
+                transform: `scale(${radius / 80})`, // Adjust divisor to change arrow size
+              }}
+            />
+          </div>
+        </div>
+      </div>
       {/* Value display */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-4xl font-bold">{value}</span>
+      <div className=" absolute inset-0 flex items-center justify-center">
+        <span className=" mt-8 text-5xl font-bold">{value}</span>
       </div>
     </div>
   );
@@ -130,26 +121,10 @@ const MarketPerformanceBento = () => {
             background={
               <div className="absolute inset-0 flex items-center justify-between p-6">
                 <GaugeDisplay />
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500" />
-                    <span>Poor (0)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-blue-500" />
-                    <span>Neutral</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-green-500" />
-                    <span>Good (100)</span>
-                  </div>
-                </div>
               </div>
             }
           />
         </div>
-
-        {/* Rest of the cards remain the same... */}
         {/* Quarter Performance Card and MPI Projection Card code stays unchanged */}
         <div className="col-span-3 md:col-span-1">
           <BentoCard
