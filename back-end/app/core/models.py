@@ -19,3 +19,16 @@ class MPIResponse(BaseModel):
     sentiment_breakdown: Dict[str, int]
     analyzed_items: List[SentimentResult]
     timestamp: datetime
+    
+class SummaryItem(BaseModel):
+    summarised_news: str
+    category: str
+
+class PreprocessedItem(BaseModel):
+    summarised_news: str
+    category: str
+    preprocessed_news: str
+
+class PreprocessResponse(BaseModel):
+    status: str
+    data: List[PreprocessedItem]

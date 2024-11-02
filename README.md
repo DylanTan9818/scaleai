@@ -15,11 +15,16 @@ bun dev
 ```
 
 # To run python:
-python -m venv venv
-.\venv\Scripts\activate
+cd back-end/
+Here's the step-by-step installation for all required packages for your FastAPI backend:
+
+First, create and activate virtual environment:
+Install all required packages:
+pip install fastapi uvicorn pydantic pydantic-settings transformers torch pandas numpy slowapi
 
 uvicorn main:app --reload
 
+# Run the front-end
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
@@ -29,4 +34,14 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 ## Dependencies:
 
 ShadCN
+
+
+## Important APIs
+
+array of summarised_news into preproessed_news
+http://localhost:8000/api/preprocess
+
+array of summarised preprocess news into mpi score
+http://localhost:8000/api/mpi/analyze-json
+
 
