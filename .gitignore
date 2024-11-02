@@ -35,3 +35,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# ipynb since it contain open ai key
+/back-end/mpi/market_sentiment analysis.ipynb

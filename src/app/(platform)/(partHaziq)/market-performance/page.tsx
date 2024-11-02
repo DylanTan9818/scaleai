@@ -1,10 +1,10 @@
 import React from "react";
+import MarketPerformanceBento from "./_components/marketperformancebento";
 
 const MarketPerformance = () => {
   return (
     <div>
-      <h1>Market Performance</h1>
-      <p>Welcome to the Market Performance page</p>
+      <MarketPerformanceBento />
     </div>
   );
 };
