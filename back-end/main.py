@@ -1,29 +1,32 @@
-# First, import FastAPI and create the app instance
 from fastapi import FastAPI
-app = FastAPI()
-
-# Then import and add middleware
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
+from app.core.config import settings
+from app.api.endpoints import mpi, health
+
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    version=settings.VERSION
+)
 
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # NextJS default port
-    allow_credentials=True,
+    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_credentials=True, 
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
 
-# Define your routes
 @app.get("/")
-async def read_root():
-    return {"message": "Hello World"}
+async def root():
+    """Redirect root to API documentation"""
+    return RedirectResponse(url="/docs")
 
-@app.get("/api/items/{item_id}")
-async def read_item(item_id: int):
-    return {"item_id": item_id}
+# Include routers
+app.include_router(mpi.router, prefix=f"{settings.API_V1_STR}/mpi", tags=["mpi"])
+app.include_router(health.router, prefix=f"{settings.API_V1_STR}/health", tags=["health"])
 
-# Optional: for running directly with Python
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
