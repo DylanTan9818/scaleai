@@ -35,3 +35,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# venv for python
+/.venv/
+/back-end/venv/
+/.venv/*
+/back-end/venv/*
+/venv/*
+
+# ipynb since it contain open ai key
+/back-end/mpi/market_sentiment analysis.ipynb
