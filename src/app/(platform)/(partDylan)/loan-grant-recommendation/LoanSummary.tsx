@@ -84,7 +84,7 @@ export function LoanSummary() {
     });
 
     try {
-      const genAI = new GoogleGenerativeAI("AIzaSyDiEuFsPIya8em34GDtytDYXsOC1aJ48h8");
+      const genAI = new GoogleGenerativeAI("");
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const prompt = `I am a ${companyData.status} ${companyData.industry} in ${formData.stateOfCountry} focuses on ${companyData.companyDescription}. 
