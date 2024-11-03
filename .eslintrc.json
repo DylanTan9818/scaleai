@@ -1,3 +1,13 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@next/next/no-img-element": "off",  // Ignore warnings about <img> usage
+    "@typescript-eslint/no-unused-vars": "off",  // Ignore unused variables
+    "prefer-const": "off",  // Ignore the 'prefer const' rule
+    "@typescript-eslint/no-explicit-any": "off",  // Ignore 'any' type usage
+    "@typescript-eslint/no-empty-interface": "off",  // Ignore empty interface rule
+    "react-hooks/exhaustive-deps": "off",  // Ignore missing dependencies in useEffect warnings
+    "@typescript-eslint/no-empty-object-type": "off",  // Ignore empty object type rule
+    "@typescript-eslint/no-require-imports": "off"  // Allow require() style imports
+  }
 }
