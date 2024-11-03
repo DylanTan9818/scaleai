@@ -308,7 +308,16 @@ const GDPChart: React.FC<GDPChartProps> = ({
   );
 };
 
-const GDPCharts = () => {
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface GDPChartsProps {
+  name: string; // Specify the prop type here
+}
+
+const GDPCharts: React.FC<GDPChartsProps> = ({ name }) => {
   const sectorOptions: SelectOption[] = [
     { value: 'manufacturing', label: 'Manufacturing' },
     { value: 'services', label: 'Services' },
@@ -324,7 +333,7 @@ const GDPCharts = () => {
   return (
     <div className="grid grid-cols-1 gap-4">
       <GDPChart 
-        title="GDP Growth Rate" 
+        title={name}
         defaultSector={sectorOptions[0].value} 
         defaultSubsector={subsectorOptions[0].value} 
         sectorOptions={sectorOptions} 

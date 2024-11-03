@@ -143,9 +143,6 @@ years of business operation. show json format straight away no need to state any
         <div className="space-y-4">
           <div className="flex justify-between items-center w-full">
             <h3 className="text-lg font-medium">Grant Application</h3>
-            <span className="px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-xs">
-              Processing
-            </span>
           </div>
           <Card className="bg-gradient-to-r from-blue-900 to-blue-800 text-white border-0">
             <CardContent className="p-6 flex flex-col items-center text-center">

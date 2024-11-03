@@ -6,17 +6,17 @@ import Image from "next/image";
 const newsItems = [
   {
     title: "Microsoft to invest US$2.2b in cloud and AI services in Malaysia",
-    image: "/images/microsoft.png",  // Use absolute path from public folder
+    image: "/images/452292672-300x220.jpg",  // Use absolute path from public folder
     trending: true,
   },
   {
     title: "Malaysia Races To Become Global Tech Hub: From Semiconductors To Data Centres | CNA Correspondent",
-    image: "/images/Malaysia.jpg",   // Use absolute path from public folder
+    image: "/images/13TR009A1-1-SEMICONDUCTOR.jpg",   // Use absolute path from public folder
     trending: true,
   },
   {
     title: "SME News | MRANTI addresses Malaysia's shift to become technology producer",
-    image: "/images/mranti.jpg",     // Use absolute path from public folder
+    image: "/images/CC4_MRANTI_Headquarters6_TEM1473_theedgemalaysia.jpg",     // Use absolute path from public folder
     trending: true,
   },
 ];
@@ -31,7 +31,7 @@ export function NewsSection() {
         </p>
       </CardHeader>
       <CardContent>
-        <div className="space-y-6">
+        <div className="space-y-16">
           {newsItems.map((item, index) => (
             <div key={index} className="flex items-start gap-4">
               <Image 
