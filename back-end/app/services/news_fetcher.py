@@ -97,7 +97,7 @@ class NewsFetcher:
         logger.info(f"Found total of {len(filtered_articles)} relevant articles")
         return filtered_articles
 
-    async def fetch_content(self, url: str) -> str:
+    async def fetch_content(self, url: str, article: Dict) -> str:
         """Fetch full article content via web scraping"""
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -132,7 +132,7 @@ class NewsFetcher:
         processed_articles = []
         for article in filtered_articles:
             if article.get('url'):
-                content = await self.fetch_content(article['url'])
+                content = await self.fetch_content(article['url'], article)
                 if content:
                     processed_articles.append({
                         'title': article.get('title'),
