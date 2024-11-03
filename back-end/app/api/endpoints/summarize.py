@@ -29,6 +29,6 @@ async def summarize_sector_news(sector: str):
         with open(output_file, 'w') as f:
             json.dump(summarized_articles, f, indent=2)
 
-        return {"status": "success", "count": len(summarized_articles)}
+        return summarized_articles  # Return list directly
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

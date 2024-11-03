@@ -1,15 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useState} from "react";
-
 import { BentoGrid, BentoCard } from "@/components/ui/bento-grid";
-
 import { QuarterPerformance } from "./quarterPerformance";
 import { MPIProjection } from "./MPIProjection";
 import { ActivitySquare, Gauge, LineChartIcon } from "lucide-react";
 import { GaugeDisplay } from "./gaugeDisplay";
-
 import {
   Select,
   SelectContent,
@@ -17,37 +13,34 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-
+} from "@/components/ui/select";
 
 const MarketPerformanceBento = () => {
-  const [mpiScore, setMpiScore] = useState<number>(85);
+  const [mpiScore, setMpiScore] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSectorChange = async (value: string) => {
     setIsLoading(true);
     try {
       // Step 1: Summarize news
-      await axios.post(`/api/summarize/${value}`);
+      const summarizeResponse = await axios.post(`http://localhost:8000/api/summarize/${value}`);
       
       // Step 2: Preprocess summarized news
-      const summaryFile = await fetch(`/data/summarized_${value}_news.json`);
-      const summaryData = await summaryFile.json();
-      const preprocessResponse = await axios.post('/api/preprocess', {
-        summaries: summaryData
-      });
+      const preprocessResponse = await axios.post('http://localhost:8000/api/preprocess/preprocess', summarizeResponse.data);
 
       // Step 3: Get MPI score
-      const mpiResponse = await axios.post('/api/mpi/analyze-json', {
-        file_content: preprocessResponse.data
+      const mpiResponse = await axios.post('http://localhost:8000/api/mpi/analyze-json', {
+        file_content: preprocessResponse.data.data
       });
 
       setMpiScore(mpiResponse.data.mpi_score);
     } catch (error) {
-      console.error('Error processing sector:', error);
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
+
   return (
     <div className="w-full p-4">
       <h1 className="text-2xl font-bold mb-4">Market Performance</h1>
@@ -58,10 +51,10 @@ const MarketPerformanceBento = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectItem value="tecnology">Technology</SelectItem>
+              <SelectItem value="technology">Technology</SelectItem>
               <SelectItem value="agriculture">Agriculture</SelectItem>
               <SelectItem value="economy">Economy</SelectItem>
-          </SelectGroup>
+            </SelectGroup>
           </SelectContent>
         </Select>
       </div>
@@ -73,7 +66,7 @@ const MarketPerformanceBento = () => {
             description=""
             Icon={Gauge}
             href="#"
-            background={<GaugeDisplay value={mpiScore} />}
+            background={<GaugeDisplay value={mpiScore} isLoading={isLoading} />}
           />
         </div>
         <div className="col-span-3 md:col-span-1">
