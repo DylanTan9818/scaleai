@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import StepProgressAnimation from "../animation";
 
 interface GaugeDisplayProps {
   value?: number | null;
@@ -9,7 +10,9 @@ interface GaugeDisplayProps {
 
 export const GaugeDisplay = ({ value, isLoading = false }: GaugeDisplayProps) => {
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className=" -mt-64">
+      <StepProgressAnimation />
+      </div>;
   }
 
   // Add fallback in case value is undefined during initial render
