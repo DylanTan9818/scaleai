@@ -36,6 +36,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Python virtual environment
+back-end/venv*
+back-end/venv/
+back-end/venv/*
+back-end/venv/**
 
 # ipynb since it contain open ai key
-/back-end/mpi/market_sentiment analysis.ipynb
+/back-end/market_sentiment analysis.ipynb
+/back-end/fetchnewsapi.ipynb

@@ -10,18 +10,15 @@ class SummaryItem(BaseModel):
     summarised_news: str
     category: str
 
-class SummaryRequest(BaseModel):
-    summaries: List[SummaryItem]
-
-@router.post("")
-async def preprocess_summaries(request: SummaryRequest):
+@router.post("/preprocess")
+async def preprocess_summaries(summaries: List[SummaryItem]):
     try:
         # Convert input to DataFrame
         df = pd.DataFrame([
             {
                 'summarised_news': item.summarised_news,
                 'category': item.category
-            } for item in request.summaries
+            } for item in summaries
         ])
         
         # Apply preprocessing

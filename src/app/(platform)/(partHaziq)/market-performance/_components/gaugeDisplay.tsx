@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 
@@ -14,6 +15,7 @@ export const GaugeDisplay = ({ value = 85 }: GaugeDisplayProps) => {
   const containerSize = radius * 6;
   const rotationAngle = (value / 100) * 180 - 90;
 
+
   const getMarketStatus = (value: number) => {
     if (value >= 66)
       return { text: "Good Market Performance", color: "text-emerald-400" };
@@ -23,6 +25,7 @@ export const GaugeDisplay = ({ value = 85 }: GaugeDisplayProps) => {
   };
 
   const status = getMarketStatus(value);
+
 
   return (
     <div className="absolute inset-0 flex items-center justify-between p-6">

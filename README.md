@@ -22,6 +22,8 @@ First, create and activate virtual environment:
 Install all required packages:
 pip install fastapi uvicorn pydantic pydantic-settings transformers torch pandas numpy slowapi
 
+.\venv\Scripts\activate
+
 uvicorn main:app --reload
 
 # Run the front-end
