@@ -155,7 +155,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Main Content */}
-        <div className="ml-48">
+        <div className="ml-0">
           <header className="bg-white border-b border-slate-200 px-6 py-4">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">

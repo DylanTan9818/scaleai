@@ -1,5 +1,5 @@
 // dashboard/page.tsx
-
+'use client'
 import { Bell, Clock, Moon, Search, User } from "lucide-react";
 import { NewsSection } from "./news/news-section";
 import { StatCards } from "./stats/stats";
@@ -38,7 +38,7 @@ const Dashboard = () => {
         {/* Second Row - GDP Chart and GDP Statistics */}
         <div className="grid grid-cols-12 gap-6 mb-8">
           <div className="col-span-12 lg:col-span-8">
-            <GDPCharts />
+            <GDPCharts name = "GDP Growth Rate By Sector"/>
           </div>
           <div className="col-span-12 lg:col-span-4 flex flex-col">
             <GDPStatistics className="flex-grow" />
@@ -49,7 +49,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-12 lg:col-span-8">
             {/* Placeholder for additional graph/chart component */}
-            <GDPCharts /> {/* Replace with your additional chart component if different */}
+            <GDPCharts name = "GDP Growth Rate By Subsector"/> {/* Replace with your additional chart component if different */}
           </div>
           <div className="col-span-12 lg:col-span-4">
             <NewsSection />

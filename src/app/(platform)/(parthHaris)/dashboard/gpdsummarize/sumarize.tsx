@@ -9,31 +9,15 @@ interface GDPDataItem {
 }
 
 const GDPStatistics = ({ className }: { className?: string }) => {
-  // Update gdpData type to be an array of GDPDataItem or null initially
-  const [gdpData, setGdpData] = useState<GDPDataItem[] | null>(null);
+  // Initialize gdpData with mock data instead of fetching from an API
+  const [gdpData, setGdpData] = useState<GDPDataItem[]>([
+    { label: "Highest GDP", value: "RM64,000" },
+    { label: "Lowest GDP", value: "RM34,833" },
+    { label: "Average GDP", value: "RM55,314" },
+    { label: "Expected GDP 2024", value: "RM76,342" }
+  ]);
 
-  useEffect(() => {
-    const fetchGDPData = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/gdp");
-        const data = await response.json();
-        setGdpData([
-          { label: "Highest GDP", value: data["Highest GDP"] },
-          { label: "Lowest GDP", value: data["Lowest GDP"] },
-          { label: "Average GDP", value: data["Average GDP"] },
-          { label: "Expected GDP 2024", value: data["Expected GDP 2024"] }
-        ]);
-      } catch (error) {
-        console.error("Error fetching GDP data:", error);
-      }
-    };
-
-    fetchGDPData();
-  }, []);
-
-  // Render loading state if gdpData is still null
-  if (!gdpData) return <p>Loading...</p>;
-
+  // Render loading state is no longer necessary since we're using mock data
   return (
     <Card className={`w-full flex flex-col ${className}`}>
       <div>
@@ -57,7 +41,7 @@ const GDPStatistics = ({ className }: { className?: string }) => {
           ))}
         </CardContent>
       </div>
-      
+
       <div className="mt-auto border-t border-gray-100">
         <div className="px-6 py-4 flex items-center justify-between">
           <p className="text-[#94a3b8]">
