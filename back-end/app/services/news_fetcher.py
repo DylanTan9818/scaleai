@@ -16,7 +16,7 @@ class NewsFetcher:
         self.mediastack_key = settings.MEDIASTACK_KEY
         self.client = OpenAI(api_key=settings.OPENAI_KEY)
         self.base_url = "http://api.mediastack.com/v1/news"
-        self.batch_size = 5
+        self.batch_size = 10
         
     async def fetch_news(self, sector: str = None) -> List[Dict]:
         """Fetch general news from MediaStack
@@ -27,22 +27,33 @@ class NewsFetcher:
         params = {
             'access_key': self.mediastack_key,
             'countries': 'my',
+            'categories': 'general,technology,business,science',
             'limit': 100,
             'sort': 'published_desc',
-            'languages': 'en'
+            'languages': 'en',
         }
 
         async with aiohttp.ClientSession() as session:
+            logger.info(f"Fetching news with params: {params}")
             async with session.get(self.base_url, params=params) as response:
                 if response.status == 200:
                     data = await response.json()
                     articles = data.get('data', [])
+                    logger.info(f"Fetched {len(articles)} articles")
                     
-                    # If sector is provided, filter articles
+                    # Log first article for debugging
+                    if articles:
+                        logger.info(f"Sample article: {articles[0].get('title')}")
+                    
                     if sector:
-                        return await self.filter_by_sector(articles, sector)
+                        filtered = await self.filter_by_sector(articles, sector)
+                        logger.info(f"Filtered to {len(filtered)} articles for sector: {sector}")
+                        return filtered
                     return articles
-                return []
+                else:
+                    error_text = await response.text()
+                    logger.error(f"API Error: Status {response.status}, Response: {error_text}")
+                    return []
 
     async def filter_by_sector(self, articles: List[Dict], sector: str) -> List[Dict]:
         """Filter articles by sector impact using OpenAI"""
@@ -78,7 +89,7 @@ class NewsFetcher:
                         "role": "user", 
                         "content": "\n---\n".join(prompts)
                     }],
-                    temperature=0.7  # Increased temperature for more flexible responses
+                    temperature=0.1  # Increased temperature for more flexible responses
                 )
 
                 results = response.choices[0].message.content.strip().split('\n')
@@ -97,7 +108,7 @@ class NewsFetcher:
         logger.info(f"Found total of {len(filtered_articles)} relevant articles")
         return filtered_articles
 
-    async def fetch_content(self, url: str) -> str:
+    async def fetch_content(self, url: str, article: Dict) -> str:
         """Fetch full article content via web scraping"""
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -132,7 +143,7 @@ class NewsFetcher:
         processed_articles = []
         for article in filtered_articles:
             if article.get('url'):
-                content = await self.fetch_content(article['url'])
+                content = await self.fetch_content(article['url'], article)
                 if content:
                     processed_articles.append({
                         'title': article.get('title'),

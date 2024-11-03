@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from app.core.config import settings
-from app.api.endpoints import mpi, health, preprocess, news
+from app.api.endpoints import mpi, health, preprocess, news, summarize
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -37,6 +37,14 @@ app.include_router(
     prefix=f"{settings.API_V1_STR}/news",
     tags=["news"]
 )
+
+app.include_router(
+    summarize.router,
+    prefix=f"{settings.API_V1_STR}/summarize",
+    tags=["summarize"]
+)
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

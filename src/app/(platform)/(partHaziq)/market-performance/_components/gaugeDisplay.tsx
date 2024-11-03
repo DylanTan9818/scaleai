@@ -3,20 +3,30 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 
 interface GaugeDisplayProps {
-  value?: number;
+  value?: number | null;
+  isLoading?: boolean;
 }
 
-export const GaugeDisplay = ({ value = 85 }: GaugeDisplayProps) => {
+export const GaugeDisplay = ({ value, isLoading = false }: GaugeDisplayProps) => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  // Add fallback in case value is undefined during initial render
+  if (typeof value === 'undefined') {
+    return <div>No data available</div>;
+  }
+
   const radius = 48;
   const strokeWidth = 10;
   const normalizedRadius = radius - strokeWidth / 2;
   const circumference = normalizedRadius * Math.PI;
-  const progressOffset = circumference - (value / 100) * circumference;
+  const progressOffset = circumference - ((value ?? 0) / 100) * circumference;
   const containerSize = radius * 6;
-  const rotationAngle = (value / 100) * 180 - 90;
-
+  const rotationAngle = ((value ?? 0) / 100) * 180 - 90;
 
   const getMarketStatus = (value: number) => {
+    if (value === 0) return { text: "", color: "" };
     if (value >= 66)
       return { text: "Good Market Performance", color: "text-emerald-400" };
     if (value >= 33)
@@ -24,8 +34,7 @@ export const GaugeDisplay = ({ value = 85 }: GaugeDisplayProps) => {
     return { text: "Poor Market Performance", color: "text-red-400" };
   };
 
-  const status = getMarketStatus(value);
-
+  const status = getMarketStatus(value ?? 0);
 
   return (
     <div className="absolute inset-0 flex items-center justify-between p-6">

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Body
 from pydantic import BaseModel
-from typing import List
+from typing import List, Dict
 import pandas as pd
 from app.services.preprocess import preprocessor
 
@@ -10,8 +10,12 @@ class SummaryItem(BaseModel):
     summarised_news: str
     category: str
 
-@router.post("/preprocess")
-async def preprocess_summaries(summaries: List[SummaryItem]):
+class PreprocessResponse(BaseModel):
+    status: str
+    data: List[Dict[str, str]]
+
+@router.post("/preprocess", response_model=PreprocessResponse)
+async def preprocess_summaries(summaries: List[SummaryItem] = Body(...)):
     try:
         # Convert input to DataFrame
         df = pd.DataFrame([

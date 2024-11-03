@@ -1,45 +1,64 @@
 "use client";
-import React from "react";
-
+import React, { useState } from "react";
+import axios from "axios";
 import { BentoGrid, BentoCard } from "@/components/ui/bento-grid";
-
 import { QuarterPerformance } from "./quarterPerformance";
 import { MPIProjection } from "./MPIProjection";
 import { ActivitySquare, Gauge, LineChartIcon } from "lucide-react";
 import { GaugeDisplay } from "./gaugeDisplay";
-import { Button } from "@/components/ui/button"
-
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-
+} from "@/components/ui/select";
 
 const MarketPerformanceBento = () => {
+  const [mpiScore, setMpiScore] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSectorChange = async (value: string) => {
+    setIsLoading(true);
+    try {
+      // Step 1: Summarize news
+      const summarizeResponse = await axios.post(`http://localhost:8000/api/summarize/${value}`);
+      
+      // Step 2: Preprocess summarized news
+      const preprocessResponse = await axios.post('http://localhost:8000/api/preprocess/preprocess', summarizeResponse.data);
+
+      // Step 3: Get MPI score
+      const mpiResponse = await axios.post('http://localhost:8000/api/mpi/analyze-json', {
+        file_content: preprocessResponse.data.data
+      });
+
+      setMpiScore(mpiResponse.data.mpi_score);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="w-full p-4">
       <h1 className="text-2xl font-bold mb-4">Market Performance</h1>
-      <div className="mb-2"><Select>
-      <SelectTrigger className="w-[180px] bg-white">
-        <SelectValue placeholder="Select Sector" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-
-          <SelectItem value="apple">Technology</SelectItem>
-          <SelectItem value="banana">Agriculture</SelectItem>
-          <SelectItem value="blueberry">Economy</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select></div>
-      
+      <div className="mb-2">
+        <Select onValueChange={handleSectorChange}>
+          <SelectTrigger className="w-[180px] bg-white">
+            <SelectValue placeholder="Select Sector" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="technology">Technology</SelectItem>
+              <SelectItem value="agriculture">Agriculture</SelectItem>
+              <SelectItem value="economy">Economy</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
       <BentoGrid>
-        
         <div className="col-span-3 md:col-span-2">
           <BentoCard
             name="Market Performance Indicator (MPI)"
@@ -47,7 +66,7 @@ const MarketPerformanceBento = () => {
             description=""
             Icon={Gauge}
             href="#"
-            background={<GaugeDisplay />}
+            background={<GaugeDisplay value={mpiScore} isLoading={isLoading} />}
           />
         </div>
         <div className="col-span-3 md:col-span-1">
